@@ -12,7 +12,7 @@ def home():
     Use /analyze/text to get the sentiment"
 
 
-@app.get('/analyze/<input_txt>')
+@app.get('/analyze/<path:input_txt>')
 def analyze_sentiment(input_txt):
 
     scores = sia.polarity_scores(input_txt)

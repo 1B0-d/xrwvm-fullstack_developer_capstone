@@ -1,16 +1,13 @@
-FROM node:18.12.1-bullseye-slim
+FROM node:22-slim
 
-RUN npm install -g npm@9.1.3
+ENV NODE_ENV=production
+WORKDIR /app
 
-ADD package.json .
-ADD app.js .
-ADD review.js .
-ADD dealership.js .
-ADD data/dealerships.json .
-ADD data/reviews.json .
-COPY . .
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+COPY data/dealerships.json data/reviews.json ./
+COPY app.js dealership.js inventory.js review.js ./
 
 EXPOSE 3030
-
-CMD [ "node", "app.js" ]
+CMD ["node", "app.js"]

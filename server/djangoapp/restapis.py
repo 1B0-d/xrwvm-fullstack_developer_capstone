@@ -6,11 +6,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-backend_url = os.getenv(
-    'backend_url', default="http://localhost:3030")
-sentiment_analyzer_url = os.getenv(
-    'sentiment_analyzer_url',
-    default="http://localhost:5050/")
+def configured_url(name, default):
+    value = os.getenv(name, '').strip()
+    return default if not value or value.lower().startswith('your ') else value
+
+
+backend_url = configured_url('backend_url', 'http://localhost:3030')
+sentiment_analyzer_url = configured_url('sentiment_analyzer_url', 'http://localhost:5000/')
 
 def get_request(endpoint, **kwargs):
     response = requests.get(backend_url.rstrip('/') + endpoint, params=kwargs, timeout=10)
