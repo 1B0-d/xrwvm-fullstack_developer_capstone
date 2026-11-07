@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request
 import requests
 
-from emotion_detection import emotion_detector
+from EmotionDetection.emotion_detection import emotion_detector
 
 app = Flask(__name__)
 
