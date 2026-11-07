@@ -22,6 +22,11 @@ class ExamTests(TestCase):
         self.assertEqual(response.status_code, 302)
         return self.client.get(response.url)
 
+    def test_model_score_requires_all_and_only_correct_choices(self):
+        self.assertTrue(self.q.is_get_score([self.a.id, self.b.id]))
+        self.assertFalse(self.q.is_get_score([self.a.id]))
+        self.assertFalse(self.q.is_get_score([self.a.id, self.b.id, self.bad.id]))
+
     def test_all_and_only_correct_choices_pass(self):
         response = self.submit_choices([self.a, self.b])
         self.assertContains(response, '100.0%')

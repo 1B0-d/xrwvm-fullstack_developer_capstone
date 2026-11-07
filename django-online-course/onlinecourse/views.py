@@ -158,9 +158,7 @@ def show_exam_result(request, course_id, submission_id):
     earned = total = 0
     for question in questions:
         choices = list(question.choice_set.all())
-        correct_ids = {choice.id for choice in choices if choice.is_correct}
-        selected = selected_ids.intersection(choice.id for choice in choices)
-        correct = bool(correct_ids) and selected == correct_ids
+        correct = question.is_get_score(selected_ids)
         total += question.grade
         earned += question.grade if correct else 0
         results.append({'question': question, 'choices': choices,
