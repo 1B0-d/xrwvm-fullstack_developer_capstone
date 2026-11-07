@@ -22,7 +22,7 @@ class ChoiceInline(admin.StackedInline):
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'course', 'grade')
+    list_display = ('question_text', 'course', 'grade')
     inlines = [ChoiceInline]
 
 

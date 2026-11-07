@@ -57,9 +57,9 @@
                 <h3 class="mt-4">Course exam</h3>
                 {% for question in course.question_set.all %}
                 <fieldset class="card my-3 p-3">
-                    <legend>{{ question.text }} ({{ question.grade }} points)</legend>
+                    <legend>{{ question.question_text }} ({{ question.grade }} points)</legend>
                     {% for choice in question.choice_set.all %}
-                    <label><input type="checkbox" name="choices" value="{{ choice.id }}"> {{ choice.text }}</label>
+                    <label><input type="checkbox" name="choices" value="{{ choice.id }}"> {{ choice.choice_text }}</label>
                     {% endfor %}
                 </fieldset>
                 {% empty %}<p>No exam questions are available.</p>{% endfor %}

@@ -167,7 +167,7 @@ def show_exam_result(request, course_id, submission_id):
                         'selected_ids': selected_ids, 'correct': correct})
     grade = round(100 * earned / total, 2) if total else 0
     return render(request, 'onlinecourse/exam_result_bootstrap.html',
-                  {'course': course, 'grade': grade, 'results': results})
+                  {'course': course, 'grade': grade, 'results': results, 'selected_ids': selected_ids})
 
 
 

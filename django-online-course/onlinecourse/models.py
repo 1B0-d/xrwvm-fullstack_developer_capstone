@@ -97,25 +97,33 @@ class Enrollment(models.Model):
 
 class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    text = models.CharField(max_length=1000)
+    question_text = models.CharField(max_length=1000)
     grade = models.PositiveIntegerField(default=1)
 
     def __str__(self):
-        return self.text
+        return self.question_text
+
+    def is_get_score(self, selected_ids):
+        correct_ids = set(self.choice_set.filter(is_correct=True).values_list('id', flat=True))
+        selected = set(self.choice_set.filter(id__in=selected_ids).values_list('id', flat=True))
+        return bool(correct_ids) and selected == correct_ids
 
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    text = models.CharField(max_length=1000)
+    choice_text = models.CharField(max_length=1000)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.text
+        return self.choice_text
 
 
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE)
     choices = models.ManyToManyField(Choice, blank=True)
+
+    def __str__(self):
+        return f"Submission {self.pk} for {self.enrollment}"
 
 
 # One enrollment could have multiple submission

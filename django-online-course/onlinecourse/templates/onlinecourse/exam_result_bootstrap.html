@@ -50,10 +50,10 @@
         <h5 class="">Exam results</h5>
             {% for item in results %}
             <div class="card mt-2"><div class="card-body">
-                <h5>{{ item.question.text }}</h5>
+                <h5>{{ item.question.question_text }}</h5>
                 <p>{% if item.correct %}Correct{% else %}Incorrect{% endif %}</p>
                 {% for choice in item.choices %}
-                <div>{% if choice.id in item.selected_ids %}Selected: {% endif %}{{ choice.text }}{% if choice.is_correct %} (correct answer){% endif %}</div>
+                <div>{% if choice.id in item.selected_ids %}Selected: {% endif %}{{ choice.choice_text }}{% if choice.is_correct %} (correct answer){% endif %}</div>
                 {% endfor %}
             </div></div>
             {% endfor %}
