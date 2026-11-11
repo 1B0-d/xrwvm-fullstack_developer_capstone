@@ -1,0 +1,5 @@
+NAME                          IMAGE                       COMMAND                  SERVICE     CREATED          STATUS                          PORTS
+codex_REDACTED_test-api-1         codex_REDACTED_test-api         "docker-entrypoint.s…"   api         39 seconds ago   Exited (0) 5 seconds ago        
+codex_REDACTED_test-mongo-1       mongo:7                     "docker-entrypoint.s…"   mongo       4 minutes ago    Exited (0) 4 seconds ago        
+codex_REDACTED_test-sentiment-1   codex_REDACTED_test-sentiment   "gunicorn --bind 0.0…"   sentiment   2 minutes ago    Exited (0) About a minute ago   
+codex_REDACTED_test-web-1         codex_REDACTED_test-web         "sh -c 'python manag…"   web         2 minutes ago    Exited (0) About a minute ago   

@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-11-10T01:50:14.969695+05:00",
+  "mode": "live localhost HTTP, Express, isolated MongoDB and Flask; no mocks",
+  "mongo": "Docker Compose codex_REDACTED_test MongoDB container, isolated named test volume",
+  "test_user": "smoke_ee4a80ca17ae",
+  "checks": [
+    {
+      "check": "home page",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "frontend entry",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "frontend JavaScript asset",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "registration",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "logout",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "login",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "dealers through real Express and MongoDB",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "dealer details",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "add review through real Express and MongoDB",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "read added review and call real Flask sentiment",
+      "http_status": 200,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

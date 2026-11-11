@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-11-10T01:51:04.843174+05:00",
+  "environment": "Local Django / React / Express / isolated Docker MongoDB / Flask, no mock services",
+  "test_user": "REDACTED_browser_demo_20261110",
+  "test_data": "synthetic",
+  "observed_ui": [
+    "registration redirected to home showing test username",
+    "logout restored login link",
+    "login restored test username",
+    "dealer list showed 50 rows",
+    "posted test review and observed same text on dealer page"
+  ],
+  "limitations": [
+    "local development environment only",
+    "no claim about deployment or real customer data"
+  ],
+  "redaction_note": "Screenshots removed and identifiers redacted for publication; observations unchanged."
+}

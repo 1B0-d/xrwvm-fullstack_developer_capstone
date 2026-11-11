@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -r server/requirements.txt ruff
+      - name: Check, lint, and test Django
+        run: |
+          python -m compileall -q server/djangoapp server/djangoproj
+          python -m ruff check --select E9,F63,F7,F82 server/djangoapp server/djangoproj
+          mkdir -p server/static
+          python server/manage.py check
+          python server/manage.py test djangoapp --verbosity 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: server/frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci --prefix server/frontend
+      - name: Lint frontend and build React app
+        working-directory: server/frontend
+        run: |
+          ./node_modules/.bin/eslint src --max-warnings=0
+          npm run build
+
+      - name: Lint backend JavaScript and check syntax
+        run: |
+          server/frontend/node_modules/.bin/eslint --no-eslintrc --env node,es2021 --parser-options '{"ecmaVersion":2022}' --rule 'no-unreachable:error' --rule 'no-dupe-keys:error' --rule 'no-constant-condition:error' --rule 'valid-typeof:error' server/database/*.js
+          for file in server/database/*.js; do node --check "$file"; done
+
+      - name: Build Django and Express images
+        run: |
+          docker build -f server/Dockerfile -t best-cars-django:ci server
+          docker build -f server/database/Dockerfile -t best-cars-api:ci server/database

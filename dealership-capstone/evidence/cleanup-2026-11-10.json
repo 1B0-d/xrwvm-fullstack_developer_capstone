@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-11-10T01:53:05.783175+05:00",
+  "local_services": "Stopped only this task’s Django, Express and Flask processes",
+  "standalone_mongodb": "codex-REDACTED-capstone-mongo-20261110 stopped, exit 0",
+  "compose_project": "codex_REDACTED_test: web/api/sentiment/mongo stopped, exit 0; containers, images and named test volumes retained",
+  "ports_verified_not_listening": [
+    3030,
+    15050,
+    18000,
+    18001,
+    27098
+  ],
+  "docker_desktop": "left running to avoid interrupting unrelated workloads"
+}

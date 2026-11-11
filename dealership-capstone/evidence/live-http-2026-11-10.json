@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-11-10T01:43:48.572868+05:00",
+  "mode": "live localhost HTTP, Express, isolated MongoDB and Flask; no mocks",
+  "mongo": "container codex-REDACTED-capstone-mongo-20261110, 127.0.0.1:27098, database REDACTED_capstone_test",
+  "test_user": "smoke_5c55c5b1c33c",
+  "checks": [
+    {
+      "check": "home page",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "frontend entry",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "registration",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "logout",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "login",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "dealers through real Express and MongoDB",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "dealer details",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "add review through real Express and MongoDB",
+      "http_status": 200,
+      "passed": true
+    },
+    {
+      "check": "read added review and call real Flask sentiment",
+      "http_status": 200,
+      "passed": true
+    }
+  ],
+  "passed": true
+}
