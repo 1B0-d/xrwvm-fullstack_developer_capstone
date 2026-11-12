@@ -1,0 +1,47 @@
+name: Dealership application lint
+
+on:
+  push:
+    paths:
+      - 'dealership-capstone/**'
+      - '.github/workflows/dealership-lint.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python-lint:
+    name: Python lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Ruff
+        run: python -m pip install ruff
+      - name: Check Python syntax and critical errors
+        run: |
+          python -m compileall -q dealership-capstone/server/djangoapp dealership-capstone/server/djangoproj
+          python -m ruff check --select E9,F63,F7,F82 dealership-capstone/server/djangoapp dealership-capstone/server/djangoproj
+
+  javascript-lint:
+    name: JavaScript lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: dealership-capstone/server/frontend/package-lock.json
+      - name: Install frontend dependencies
+        run: npm ci --prefix dealership-capstone/server/frontend
+      - name: Lint React frontend
+        working-directory: dealership-capstone/server/frontend
+        run: ./node_modules/.bin/eslint src --max-warnings=0
+      - name: Lint and check Express backend
+        run: |
+          dealership-capstone/server/frontend/node_modules/.bin/eslint --no-eslintrc --env node,es2021 --parser-options '{"ecmaVersion":2022}' --rule 'no-unreachable:error' --rule 'no-dupe-keys:error' --rule 'no-constant-condition:error' --rule 'valid-typeof:error' dealership-capstone/server/database/*.js
+          for file in dealership-capstone/server/database/*.js; do node --check "$file"; done
